@@ -36,6 +36,18 @@ export default defineStore('simulation', {
     },
 
     start() {
+      if (this.item.duration < 15 || this.item.duration > 100) {
+        return alert("Период должжен быть не меньше 15 и не больше 100 дней.")
+      }
+
+      if (this.item.step < 1 || this.item.step > this.item.duration) {
+        return alert("Шаг должжен быть не меньше 1 для и не больше периода.")
+      }
+
+      if (this.item.couriers < 3 || this.item.couriers > 9) {
+        return alert("Курьеров не может быть меньше 3 и больше 9.")
+      }
+
       axios
         .post('/simulation/start', this.item)
         .then((response) => {

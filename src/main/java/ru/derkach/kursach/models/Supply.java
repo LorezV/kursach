@@ -24,7 +24,7 @@ public class Supply {
     @Column(nullable = false, name = "finished_step")
     private int finishStep;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JsonIgnore
     private Product product;
 }
