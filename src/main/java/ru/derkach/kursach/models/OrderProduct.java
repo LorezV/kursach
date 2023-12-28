@@ -24,6 +24,6 @@ public class OrderProduct {
     @JsonIgnore
     private Order order;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private Product product;
 }
