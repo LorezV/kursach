@@ -1,5 +1,6 @@
 package ru.derkach.kursach.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,12 +21,10 @@ public class Supply {
     @Column(nullable = false)
     private int count;
 
-    @Column(nullable = false, name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false, name = "finished_at")
-    private LocalDateTime finishedAt;
+    @Column(nullable = false, name = "finished_step")
+    private int finishStep;
 
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Product product;
 }

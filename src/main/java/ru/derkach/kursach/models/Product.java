@@ -1,5 +1,6 @@
 package ru.derkach.kursach.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,15 +28,13 @@ public class Product {
     @Column(nullable = false)
     private float price;
 
-    @ManyToOne(optional = false)
-    private Category category;
+    @Column(nullable = false)
+    private String category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductUnit> productUnits;
 
     @OneToMany(mappedBy = "product")
-    private List<Favourite> favourites;
-
-    @OneToMany(mappedBy = "product")
-    private List<OrderProduct> orderProducts;
+    @JsonIgnore
+    private List<OrderProduct> orders;
 }

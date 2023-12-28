@@ -3,39 +3,32 @@ import { ref } from "vue"
 import { FaRegTrashAlt, FaRegSave } from "vue3-icons/fa";
 import type { TItem, TForm } from "../../stores/product"
 import useStore from "../../stores/product"
-import useCategoryStore from "../../stores/category"
 
 const props = defineProps<{ item: TItem }>()
 const emitter = defineEmits<{ (e: 'changed'): void }>()
 const store = useStore()
-const storeCategory = useCategoryStore()
 const form = ref<TForm>({
     name: props.item.name,
     weight: props.item.weight,
     price: props.item.price,
-    category: {
-        id: props.item.category.id
-    }
+    category: props.item.category
 })
 </script>
 
 <template>
     <tr class='hover:bg-zinc-100'>
-        <td class='px-2'>{{ item.id }}</td>
-        <td class='w-1/3'>
-            <input class='outline-none bg-transparent w-full' v-model='form.name' />
+        <td class='px-2 w-1/3'>
+            <input class='outline-none bg-transparent w-full' v-model='form.name' placeholder='Название' />
         </td>
         <td>
-            <input class='outline-none bg-transparent w-full' v-model='form.weight' />
+            <input class='outline-none bg-transparent w-full' v-model='form.weight' placeholder='Вес' />
         </td>
         <td>
-            <input class='outline-none bg-transparent w-full' v-model='form.price' />
+            <input class='outline-none bg-transparent w-full' v-model='form.price' placeholder='Цена' />
         </td>
-        <td class='w-1/3'>
-            <select class='outline-none py-1 bg-transparent w-full' v-model='form.category.id'>
-                <option v-for='category in storeCategory.data' :value='category.id'>{{ category.name }}
-                </option>
-            </select>
+        <td class='px-2'>{{ item.productUnits?.length || 0 }}</td>
+        <td>
+            <input class='outline-none bg-transparent w-full' v-model='form.category' placeholder='Категория' />
         </td>
         <td>
             <div class='flex'>

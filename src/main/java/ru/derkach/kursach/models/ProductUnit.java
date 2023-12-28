@@ -1,5 +1,6 @@
 package ru.derkach.kursach.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,8 +20,9 @@ public class ProductUnit {
     private int id;
 
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Product product;
 
-    @Column(nullable = false)
-    private LocalDate expiration_date;
+    @Column(name = "expiration_step", nullable = false)
+    private int expirationStep;
 }

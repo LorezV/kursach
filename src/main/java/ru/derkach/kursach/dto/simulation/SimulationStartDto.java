@@ -19,7 +19,7 @@ public class SimulationStartDto {
     @NotNull
     private int step;
 
-    @Min(15)
-    @Max(25)
+    @Min(3)
+    @Max(9)
     private int couriers;
 }

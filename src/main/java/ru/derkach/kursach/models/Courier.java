@@ -1,13 +1,8 @@
 package ru.derkach.kursach.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
@@ -21,6 +16,10 @@ public class Courier {
     @GeneratedValue
     private int id;
 
-    @OneToMany(mappedBy = "courier")
+    @Column(nullable = false)
+    private String name;
+
+    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Order> orders;
 }

@@ -1,5 +1,6 @@
 package ru.derkach.kursach.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class OrderProduct {
     private int quantity;
 
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Order order;
 
     @ManyToOne(optional = false)

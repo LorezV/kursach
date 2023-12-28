@@ -6,19 +6,16 @@ export type TItem = {
   name: string
   weight: number
   price: number
-  category: {
-    id: number
-    name: string
-  }
+  category: string
+
+  productUnits?: { id: number; expirationStep: number }[]
 }
 
 export type TForm = {
   name: string
   price: number
   weight: number
-  category: {
-    id: number
-  }
+  category: string
 }
 
 export default defineStore('product', {
@@ -53,7 +50,6 @@ export default defineStore('product', {
         })
     },
     update(id: number, form: TForm) {
-      console.log(JSON.stringify(form))
       axios
         .put(`product/${id}`, form)
         .then((response) => {

@@ -18,12 +18,15 @@ public class Order {
     private int id;
 
     @Column(nullable = false)
-    private int price;
+    private float price;
+
+    @Column(nullable = false)
+    private boolean ready;
 
     @ManyToOne(optional = false)
     private Customer customer;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Courier courier;
 
     @OneToMany(mappedBy = "order")

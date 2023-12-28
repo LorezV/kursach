@@ -1,5 +1,6 @@
 package ru.derkach.kursach.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,12 +28,10 @@ public class Customer {
     @Column(nullable = false)
     private String address;
 
-    @Column()
-    private String discount_card;
+    @Column(name = "discount_card")
+    private String discountCard;
 
     @OneToMany(mappedBy = "customer")
-    List<Favourite> favourites;
-
-    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     List<Order> orders;
 }

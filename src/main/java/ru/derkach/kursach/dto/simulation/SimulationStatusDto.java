@@ -9,6 +9,14 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SimulationDto {
+public class SimulationStatusDto {
     private boolean status;
+
+    private int duration;
+
+    private int steps;
+
+    private int couriers;
+
+    private int step;
 }

@@ -1,25 +1,33 @@
 import axios from '../axios'
 import { defineStore } from 'pinia'
 
+type TItem = {
+  duration: number
+  steps: number
+  step: number
+  couriers: number
+  status: boolean
+}
+
 export default defineStore('simulation', {
   state: () => {
     return {
-      form: {
-        duration: 10,
+      item: {
+        duration: 30,
+        steps: 0,
         step: 1,
         couriers: 5,
-      },
-      running: false,
-      timeout: -1,
+        status: false,
+      } as TItem,
     }
   },
   actions: {
     fetchData() {
       axios
-        .get<{ status: boolean }>('simulation/status')
+        .get<TItem>('simulation/status')
         .then((response) => {
           if (response.status == 200) {
-            this.running = response.data.status
+            this.item = response.data
           }
         })
         .catch((e: unknown) => {
@@ -29,14 +37,10 @@ export default defineStore('simulation', {
 
     start() {
       axios
-        .post('/simulation/start', {
-          duration: this.form.duration,
-          step: this.form.step,
-        })
+        .post('/simulation/start', this.item)
         .then((response) => {
           if (response.status == 200) {
             this.fetchData()
-            setTimeout(this.fetchData, this.form.duration * 1000)
           }
         })
         .catch((e: unknown) => {
@@ -50,11 +54,6 @@ export default defineStore('simulation', {
         .then((response) => {
           if (response.status == 200) {
             this.fetchData()
-
-            if (this.timeout > -1) {
-              clearTimeout(this.timeout)
-              this.timeout = -1
-            }
           }
         })
         .catch((e: unknown) => {
